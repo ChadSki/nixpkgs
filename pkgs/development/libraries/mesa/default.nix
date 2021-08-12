@@ -6,8 +6,8 @@
 , libelf, libvdpau
 , libglvnd, libunwind
 , vulkan-loader
-, galliumDrivers ? ["auto"]
-, vulkanDrivers ? ["auto"]
+, galliumDrivers ? if stdenv.hostPlatform.isPower then ["nouveau" "swrast"] else ["auto"]
+, vulkanDrivers ? if stdenv.hostPlatform.isPower then [] else ["auto"]
 , eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ]
 , OpenGL, Xplugin
 , withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken, valgrind-light
